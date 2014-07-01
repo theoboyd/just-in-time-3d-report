@@ -1,0 +1,175 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Just-In-Time 3D Printing}
+\author{Theodore Boyd, Lucy Campbell, James Hennessey}
+\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Executive Summary}
+In this report we discuss the research, development and analysis of our VEIV EngD group project. The focus of this work is on the field of 3D printing, specifically looking at improving the printing experience through near to real-time error mitigation.
+
+The first part of this report covers the wider set of ideas behind our work on how that 3D printing errors can be lessened through allowing the user to manipulate the print whilst it it taking place. We then look at the structure of our task and its progress, followed by a study of the current state of the art and a look at possible approaches in the Prior Art chapter. Here we also analyse the current 3D printing approach and pipeline which we will need to build upon.
+
+Next, we detail our approaches to the proposed solutions in the Method section, specifically looking at the programming and surveying techniques and their respective implementations and results. This is followed by a case study based investigation of that work in our Evaluation chapter, showing what we can do that previously was not possible.
+Finally, we look forward to future developments and applications opened up because of our project in Future Work, and any concluding remarks and lessons learnt in the Conclusion section.
+
+In summary, we have found, through our combined efforts, that with this upcoming new technology of 3D printing, there are a broad range of uses and applications. As the user base widens, so increases the noticeability of the failings and drawbacks of 3D printing. There are numerous annoyances with the process that we detail and tackle, including warping of prints, extrusion failures and long preparation times.
+
+We detail relevant research, submit questionnaires to learn from experts and amateur users alike and write a software improvement to implement a new feature to help mitigate that particular problem.
+
+At the end, we analyse the overall 3D print workflow and the features we have added along the pipeline, evaluating whether and how much we have improved the situation, through time saving or otherwise. We conclude that while 3D printing is still a fairly error-prone process, we have added substantially new features to the software that make the task more convenient.
+
+
+
+
+\section{Introduction}
+\subsection{Project Structure}
+The objective of this project was to advance the state-of-the-art of 3D printing. In particular the goal was to find ways to interact with and control a 3D printer `just-in-time'. Just-in-time refers to being able to control the commands sent to the printer just before they are about to be interpreted and executed by the printer. The just-in-time period is not fixed as the printer is continuously printing the object, building it up layer upon layer as is typical in all additive manufacturing. The kinds of interaction and control remained open to be influenced by the discoveries of the group as the project evolved and new discoveries were made.
+
+The group explored the impact that just-in-time control might have on the diverse applications of 3D printing technology. The group has engaged in a dialogue with 3D print users and investigated the context within which 3D printing is emerging. 
+
+The key principle that guided the software development process was to harness the existing software design patterns in the already open-sourced software, trying to work at a higher-level of abstractions, rather than low-level code. For example we wanted to avoid working on the firmware on the 3D printer. For a short period, we did explore the printer's firmware, to discover how feasible programming it might be and found it to be somewhat opaque and obtuse. Whilst raw access to the printer could have been useful, we deemed direct physical motor control and serial communication management as outside the scope of our project.
+
+A second guiding principle of the project was that the software developed should remain open-source. ‘Open-source is an approach to design, development, and distribution offering practical accessibility to a product’s source’~\ref{reference1}. This approach was partly taken because the 3D printers used in the project are built using open-source hardware (OSH) and operated using open-source software (OSS). The software used in the project was Cura, which is particular to the Ultimaker 3D print machines - also used throughout. Cura and Ultimaker are one set of open-source 3D print technologies, existing alongside for example ReplicatorG software which controls, amongst other printers, the Makerbot range, all of which act upon Arduino microcontroller boards (pieces of open-source hardware found at the source of many open-source hardware devices today)~\ref{reference1}. 
+
+The final guiding principle in our project was to focus more heavily on expert users by not developing novice user interfaces. This decision was made slightly after the start of the project, in light of the initial gains made in the software development process leading to a more detailed understanding of the kind of control and interaction possible. 
+
+Interviews and surveys were conducted in order to establish the wider context of the project’s stakeholder groups in a landscape of existing 3D print technology capabilities, the needs of expert print users as well as some novice users, potential applications and relevant contemporary academic research.  
+
+There were many unknown elements as to how far the group might be able to develop the just-in-time capabilities of a 3D printer. Ideas began broad and included a host of possible avenues for both applications and software development, gradually becoming more focused and specialised as the project unfolded, continuously guided by the overarching principles outlined above. The group maintained an exploratory approach throughout, creating stage deliverables as the project unfolded. 
+
+
+
+
+
+\subsection{Motivation}
+
+
+
+\section{Prior Art}
+\subsection{Technology Landscape}
+
+
+
+
+\subsection{Current Approaches}
+
+
+
+
+\subsection{Pre-Existing Pipeline}
+
+
+
+
+\section{Method}
+\subsection{Surveys}
+
+
+\subsection{Buffer Control}
+
+
+
+\subsection{G-code Manipulation}
+
+
+
+\subsection{Improved Duration Estimation}
+
+
+
+\subsection{Parameter Adjustments}
+
+
+
+\subsection{Adaptive Skirt}
+
+
+
+\subsection{Geometry Manipulation}
+
+
+
+\section{Evaluation}
+\subsection{Results}
+
+
+
+
+\section{Future Work}
+\subsection{Improved Geometry Manipulation}
+
+
+
+
+\subsection{Automated Error Mitigation}
+
+
+
+
+\subsection{Design Tool}
+
+
+
+
+\section{Conclusion}
+
+\subsection{Buffer Control}
+
+\end{document}
