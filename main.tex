@@ -4,7 +4,9 @@
 % This is a simple template for a LaTeX document using the "article" class.
 % See "book", "report", "letter" for other types of document.
 
-\documentclass[11pt]{article} % use larger type; default would be 10pt
+\documentclass[11pt]{report} % use larger type; default would be 10pt
+
+\renewcommand{\chaptername}{} % reports say "Chapter"... don't!
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 \usepackage{float}
@@ -62,7 +64,7 @@
 \begin{document}
 \maketitle
 
-\section{Executive Summary}
+\chapter{Executive Summary}
 In this report we discuss the research, development and analysis of our VEIV EngD group project. The focus of this work is on the field of 3D printing, specifically looking at improving the printing experience through near to real-time error mitigation.
 
 The first part of this report covers the wider set of ideas behind our work on how that 3D printing errors can be lessened through allowing the user to manipulate the print whilst it it taking place. We then look at the structure of our task and its progress, followed by a study of the current state of the art and a look at possible approaches in the Prior Art chapter. Here we also analyse the current 3D printing approach and pipeline which we will need to build upon.
@@ -79,8 +81,8 @@ At the end, we analyse the overall 3D print workflow and the features we have ad
 
 
 
-\section{Introduction}
-\subsection{Project Proposal}
+\chapter{Introduction}
+\section{Project Proposal}
 The objective of this project was to advance the state-of-the-art of 3D printing. In particular the goal was to find ways to interact with and control a 3D printer `just-in-time'. Just-in-time refers to being able to control the commands sent to the printer just before they are about to be interpreted and executed by the printer. The just-in-time period is not fixed as the printer is continuously printing the object, building it up layer upon layer as is typical in all additive manufacturing. The kinds of interaction and control remained open to be influenced by the discoveries of the group as the project evolved and new discoveries were made.
 
 The group explored the impact that just-in-time control might have on the diverse applications of 3D printing technology. The group has engaged in a dialogue with 3D print users and investigated the context within which 3D printing is emerging. 
@@ -98,7 +100,7 @@ There were many unknown elements as to how far the group might be able to develo
 
 
 
-\subsection{Project Structure}
+\section{Project Structure}
 We were a self-managed group, with internally negotiated roles and planning development decided through weekly meetings. Further monthly meetings were held with our academic supervisor Prof. Anthony Steed, to reflect upon progress and to discuss next steps.  In accordance with the recommendations of the academic supervisor the group maintained an online record of all group project materials using Google Groups and Google Docs. 
 
 The project was chosen by the group from a number of others presented by academic staff and students to the entire VEIV 2014 class on the 6\textsuperscript{th} of November. Anthony Steed set forth the idea as a way for a group to explore 3D printing and potential for real-time haptic control. The group, who had already formed by this stage chose Anthony's idea largely to pursue a shared interest in 3D printing and as an opportunity to diversify from their thesis topics. 
@@ -142,27 +144,27 @@ We chose to work on OSS as the machines that we used operate on OSS. The group s
 
 
 
-\subsection{Motivation}
+\section{Motivation}
 Our group was delighted to have an opportunity to work in such an active field of research. 3D printing is a phenomenon that captures widespread attention at many levels of society around the world, it is the source of much anticipated opportunity for economic success and has generated a seemingly exponentially growing industry~\ref{reference:13}. Associated research about 3D printing has been complimentarily intense and the potential applications are wide ranging and continuously evolving~\ref{reference:17}. 
 
 One of the overarching ideologies emerging from the barrage of developments in 3D printing is that manufacturing and product development are now increasingly happening from the bottom up, with individuals able to print any object within their price range and within the receding limitations of the technology available from home~\ref{reference:13}. It has been speculated that 3D printing will change the integral nature of manufacturing along with the associated logistical and production processes involved, as people gain the ability to manufacture at the at the user's location~\ref{reference:16}. Anxiety has arisen over the accessibility of 3D printing and its potential applications, fuelled by media stories for example about 3D printed guns~\ref{reference:15}. Regulation, design patents and copyrights on 3D printed objects may therefore have an increasing impact~\ref{reference:13}. While the regulatory aspects of 3D printing may seem unrelated currently, such matters may be a growing consideration in any resultant applications of our project. To name an example, if a design was patented and our new system then reproduced an altered that design, would it belong to us or to the original designer?
 
-Although the potential of 3D printing is vast, there remains much research and development work still to be done to improve the quality of the technologies and software available, to make them more accessible to a wider set of users and capable of creating more complex objects. There are persistent limitations to 3D print technologies, for example the “stair-stepping” effect of fused deposition model (FDM) technologies, explained in more detail in section \ref{section:TechnologyLandscape} of the report, whereby ‘parts cannot accurately conform to the CAD geometry in the vertical plane’~\ref{reference:18}. This was reported in~\ref{reference:44} and was reiterated last year by Nannan and Ming in their paper on Additive manufacturing: technology, applications and research needs~\ref{reference:17},~\ref{reference:18}. 
+Although the potential of 3D printing is vast, there remains much research and development work still to be done to improve the quality of the technologies and software available, to make them more accessible to a wider set of users and capable of creating more complex objects. There are persistent limitations to 3D print technologies, for example the ``stair-stepping'' effect of fused deposition model (FDM) technologies, explained in more detail in Section \ref{section:TechnologyLandscape} of the report, whereby ``parts cannot accurately conform to the CAD geometry in the vertical plane''~\ref{reference:18}. This was reported in~\ref{reference:44} and was reiterated last year by Nannan and Ming in their paper on Additive manufacturing: technology, applications and research needs~\ref{reference:17},~\ref{reference:18}.
 
 3D printing processes are unreliable across the spectrum of the different kinds of technologies available for different reasons. While failure rate increases in the lower costing 3D print machines such as the Ultimaker and RepRap, failures become more costly in higher end commercial machines where occurrences are fewer, however waste more time and potentially finite and costly materials as well as causing wear and tear to the machines themselves. Given the widespread and impeding level of errors encountered in 3D printing technologies, this was a most compelling motivation for our project and a central objective of our group was to apply just-in-time control of a 3D printer to solve recurring errors. 
 
-One cross section of 3D print users who we were particularly interested in and who commonly use the same machines available to us throughout our project can loosely be described as the ‘maker’ community. While the trend of making is broader than 3D printing alone, groups are utilising the technology and incorporate open software and hardware technologies such as Arduino and Cura in their work. ‘The availability of low-cost machines allowed other projects to start, inspired the 'makers' movement, helped the diffusion of fablabs and prototyping boards such as the Arduino, and it even started an economy’~\ref{reference:19}. Some examples of maker community groups who utilise similar technologies to us are the HackSpace or Makerverse who are resident in London or attendees of the MakerFair conference events, who are strongly linked to academic research and institutions as well~\ref{reference:14}. We feel that these groups share our project ethos of exploring accessible technologies for people to use to aid innovation. 
+One cross section of 3D print users who we were particularly interested in and who commonly use the same machines available to us throughout our project can loosely be described as the `maker' community. While the trend of making is broader than 3D printing alone, groups are utilising the technology and incorporate open software and hardware technologies such as Arduino and Cura in their work. ``The availability of low-cost machines allowed other projects to start, inspired the `makers' movement, helped the diffusion of fablabs and prototyping boards such as the Arduino, and it even started an economy''~\ref{reference:19}. Some examples of maker community groups who utilise similar technologies to us are the HackSpace or Makerverse who are resident in London or attendees of the MakerFair conference events, who are strongly linked to academic research and institutions as well~\ref{reference:14}. We feel that these groups share our project ethos of exploring accessible technologies for people to use to aid innovation. 
 
-As our group work uses similar technology and has a similar outlook as the maker community our project has an inherent strong link to the creative and generate innovative applications being explored. It was therefore natural that we consider how the just in time capabilities that we developed might also benefit the lineage of designers and artists using 3D printing.  
+As our group work uses similar technology and has a similar outlook as the maker community our project has an inherent strong link to the creative and generate innovative applications being explored. It was therefore natural that we consider how the just-in-time capabilities that we developed might also benefit the lineage of designers and artists using 3D printing.  
 
-Even though we are motivated by the types of work happening in maker communities, by contemporary research and by applications in design, the problem of errors occurring in the 3D printing process is overarching and much of our work has been informed by contemporary academic research, discussed in the section of this report entitled Current Approaches, as well as by discussions with commercial 3D print users. We were unable in the given timeframe to address all potential applications of ‘just in time’ control, for example commercial application of our project as a design tool would require a more robust investigation of user interfaces, and there are a plethora of industries actively researching 3D printing such as aerospace, transport or fashion not discussed here.
-
-
+Even though we are motivated by the types of work happening in maker communities, by contemporary research and by applications in design, the problem of errors occurring in the 3D printing process is overarching and much of our work has been informed by contemporary academic research, discussed in the section of this report entitled Current Approaches, as well as by discussions with commercial 3D print users. We were unable in the given timeframe to address all potential applications of `just-in-time' control, for example commercial application of our project as a design tool would require a more robust investigation of user interfaces, and there are a plethora of industries actively researching 3D printing such as aerospace, transport or fashion not discussed here.
 
 
 
-\section{Prior Art}
-\subsection{Technology Landscape}
+
+
+\chapter{Prior Art}
+\section{Technology Landscape}
 \label{section:TechnologyLandscape}
 While our project used an Ultimaker FDM printer, there are a number of ways to produce a three-dimensional physical object using machinery. They usually fall into either additive or subtractive techniques. Before the advent of modern technologies, additive techniques were based around pouring materials into moulds and subtractive techniques used tools such as chisels and lathes to sculpt larger blocks of raw material into the final output~\ref{reference:23}.
 
@@ -191,7 +193,7 @@ It is also possible to use light sensitive chemicals for an approach that allows
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=4in]{sla.png}
+  \includegraphics[width=3in]{sla.png}
   \caption{Photopolymerisation~\ref{reference:32}}
   \label{figure:SLA}
 \end{figure}
@@ -205,12 +207,12 @@ Whilst all of additive manufacturing is very applicable today, FDM in particular
 
 
 
-\subsection{Current Approaches}
+\section{Current Approaches}
 This section discusses work being done in recent years, that shares common characteristics with our project. Much of the work discussed is focused on prototyping processes, ranging from rapid tooling engineering to medical prototyping~\ref{reference:42},~\ref{reference:44}. 
 
-There are a number of projects which analyse 3D models before printing them, to calculate the correct geometries of a shape for some particular set of optimisations and alter it accordingly through a series of algorithmic equations. The project Make It Stand: Balancing Shapes for 3D Fabrication made it possible to interactively deform an existing model, pre-empting print failures by altering the mesh of the model. Researchers addressed the problem of how to balance a 3D model, as often a printed object would be weighted incorrectly because of overhangs and the centre of mass makes it unbalanced~\ref{reference:36}. The project applies an algorithm to manually carve and deform a model using the initial surface mesh as an input and relaying back to the user who manually alters the model until it is optimally positioned, sized and weighted to ‘stand up’. 
+There are a number of projects which analyse 3D models before printing them, to calculate the correct geometries of a shape for some particular set of optimisations and alter it accordingly through a series of algorithmic equations. The project Make It Stand: Balancing Shapes for 3D Fabrication made it possible to interactively deform an existing model, pre-empting print failures by altering the mesh of the model. Researchers addressed the problem of how to balance a 3D model, as often a printed object would be weighted incorrectly because of overhangs and the centre of mass makes it unbalanced~\ref{reference:36}. The project applies an algorithm to manually carve and deform a model using the initial surface mesh as an input and relaying back to the user who manually alters the model until it is optimally positioned, sized and weighted to `stand up'. 
 
-The project, Making Burr Puzzles from 3D Models optimises and arranges the orientation of a model in the pre-processing phase, splitting complex 3D shapes into puzzle pieces automatically~\ref{reference:43}. Others have updated the model to strengthen the object being printed, redistributing mass where points are particularly thin for example~\ref{reference:45}. Such projects achieve ‘structural analysis on the user side which, with conventional tools is often infeasible as it requires specialised training and software. ‘Trial-and-error, the most common approach, is time-consuming and expensive’~\ref{reference:46}. 
+The project, Making Burr Puzzles from 3D Models optimises and arranges the orientation of a model in the pre-processing phase, splitting complex 3D shapes into puzzle pieces automatically~\ref{reference:43}. Others have updated the model to strengthen the object being printed, redistributing mass where points are particularly thin for example~\ref{reference:45}. Such projects achieve structural analysis on the user side which, with conventional tools is often infeasible as it requires specialised training and software. ``Trial-and-error, the most common approach, is time-consuming and expensive''~\ref{reference:46}. 
 
 In Selective laser sintering (SLS) printing techniques there is active research into how the level of errors incurred can be mitigated, although Tang et al. argue more generally that it is impossible to achieve perfection in AM techniques~\ref{reference:37}. One of the central drives for improving outcomes, in part comes from the potential to use SLS processes in medical research, for example to fabricate prototypes from biomedical images in maxillofacial surgery procedures~\ref{reference:38},~\ref{reference:39}. Research papers focusing on this particular application analyse the accuracy and reliability of SLS processes~\ref{reference:38},~\ref{reference:39}, however the solutions offered are limited, finding errors through trial and error or improving upon this by calculating for errors in the pre-processing phase, similar to the examples mentioned above. This inherently means that the user must know the potential errors and or abort the print job once it has begun. This is particularly wasteful in scenarios when the print time extends over several hours, after which the user returns to find the failed print, wasting materials and time. 
 
@@ -230,69 +232,275 @@ The image in Figure~\ref{figure:Shin} shows that based on the material propertie
 In sum, rapid prototyping is becoming more or less standard in product development and a second wave of technological creativity is finding its way to industrial practise. The approaches mentioned above are set apart from our research as we are exploring new interesting areas, after the printing process has already begun coupled with more widely available low-cost FDM print technology. 
 
 
-\subsection{Pre-Existing Pipeline}
+
+
+\section{Pre-Existing Pipeline}
+\label{section:PreExistingPipeline}
+The pre-existing pipeline for fused deposition modelling (FDM) 3D printers involves a number of steps, firstly a 3D model is prepared for printing, then the 3D model is `sliced' into commands that a 3D printer can execute, thirdly these commands are sent to the firmware running on the 3D printer and finally the 3D printer interprets and executes said commands. These four stages of the pipeline will be outlined in detail below. 
+
+\textbf{Preparing a 3D model}: Once a 3D parametric model is ready to be printed it can be loaded into a software application to prepare it further. The application used throughout the project is Cura - an open source-application created by Ultimaker, although there are other applications that function in a similar way.
+
+Once the model has been loaded into Cura the user has the option to specify a number of settings for the print. The most important of these are:
+
+\begin{itemize}
+\item Fill density of the model
+\item Thickness of the solid top / bottom layers
+\item Printhead speed
+\item Type of structural supports
+\item Type of platform adhesion
+\item Thickness of plastic
+\item Size and position of skirt
+\item Nozzle temperature
+\end{itemize}
+
+These settings control both how the model should be printed, how dense it should be and also how the printer should print it, how fast should it try and go. Both have significant impact on how the object will be printed and need to be specifically chosen for the model being printed. For example, a very intricate model would benefit from being printed at a slower speed. Similarly, if the printer has only just been turned on it is much more likely to require more time to heat up, to ensure that the printer is extruding correctly without blockages.
+
+Once these settings have been chosen, the model can be `sliced' into g-code with these parameters included.
+
+\textbf{Slicing}: In Cura the slicing process is done by a separate piece of software, hidden from the user called the CuraEngine. It takes a parametric model, potentially from a number of file formats (slt, obj, ply), along with print settings as input. Then it finds the best way to represent the model using a sequence for one dimensional commands that the printer can execute, known as g-code, to outline the shape and fill the inside of the model with an appropriate structure, illustrated below:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=4in]{james_cura_top_fig.png}
+  \caption{Parametric representation of a cube, within Cura.}
+  \label{figure:JCtop}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=4in]{james_cura_bottom_fig.png}
+  \caption{Commands comprising cube in previous figure.}
+  \label{figure:JCbottom}
+\end{figure}
+
+Figure~\ref{figure:JCtop} is a parametric representation of a cube. The second is a rendered version of the g-code generated from slicing the model. Each layer is made up of individual g-code commands, which represent a single line of plastic. Each of these lines are printed one at a time then once a layer is completed the printer moves along the z axis, before printing the next layer. The inner fill of the cube follows a crosshatch pattern for stability in this example, covering 20\% of the inner density (which would have been specified by the user).This image also shows the skirt, which is the outer square on the first layer of the print, designed to ensure that the printer is extruding correctly before starting to print the cube itself.
+
+In addition to movement commands shown in Figure~\ref{figure:JCbottom} the g-code also includes commands to control the temperature of the nozzle, fan speed and extrusion motor. A more detailed description of individual g-code commands will follow later.
+
+\textbf{Communicating with the printer}: The two methods for transferring the g-code to the printer are to either use an SD card inserted directly into the printer or to communicate over a USB cable connected to the computer, however both are very similar.
+
+Once a connection between the printer and the computer is established (the SD card is built on an Arduino so it is also a computer), the firmware will make a request for more information. The computer will then send as many lines of g-code as it can, until the buffer on the firmware is full and no more can be received. As commands are continuously executed and the buffer empties, the firmware requests more gcode. In this model the g-code is sent to the printer in arbitrarily large blocks with no recognisable relation between the groups of commands contained within. Thus once a model has been sliced and the g-code has begun to be sent to the printer, it cannot be changed as there is no way to determine what has or has not been sent already.
+
+The only deviation from the above model is that occasionally the firmware will make a request to resend a line of code. The computer will resend this line, then continue sending sequentially from this line onwards. 
+
+Interpreting and executing the g-code: The firmware has a buffer of g-code commands that it takes individually, interprets and executes using the various motors and controls on the printer. 
+
+For example the following six lines of g-code are interpreted to perform the following actions:
+\begin{verbatim}
+G1 F2400 E0.00000
+G1 F1200 X111.50 Y93.50 E0.33859
+G1 X111.50 Y111.50 E0.67718
+G1 X93.50 Y111.50 E1.01577
+G1 X93.50 Y93.50 E1.35436
+G0 F9000 X98.10 Y93.50 Z0.40
+\end{verbatim}
+
+Which equates to the following script:\\
+\\
+Set the printers relative extrusion amount to zero\\
+Move in a straight line from its current position to a new coordinate (111.50, 93.50) on the Cartesian plane while extruding from the previous E value, E0.0,  to E0.3.\\
+Move in a straight line to (111.50, 111.50) while extruding to E0.67\\
+Move in a straight line to (93.50, 111.50) while extruding to E1.01\\
+Move in a straight line to (93.50, 93.50) while extruding to E1.35\\
+Keep the X and Y axis fixed and move along the Z axis to 0.4 while not extruding\\
+
+If you look at this g-code in detail you can see that is is drawing a square on one layer before moving vertically, at which time it would continue to print the next layer. The insight from this example is that g-code can easily be split into layers when there is a movement along the Z axis. Furthermore the E value needs to always remain relative to the previous value. 
 
 
 
 
-\section{Method}
-\subsection{Surveys}
+\chapter{Method}
+\section{Surveys}
+In order to understand our target users better and to develop aims in line with the wider 3D print community we conducted an initial online survey to establish what the main problems of 3D printing were and asked for a more detailed forecast on what users might use our technology for. 
+
+While the initial survey was targeted at the maker community and research groups directly surrounding us, we also later engaged with commercial 3D print companies and retailers to find out more about what kinds of problems they faced and whether their experience was a shared one, which we found was the case. In the second survey we sent an email to commercial users. 
+
+Participants in the initial survey represent a number of different fields; predominantly architecture, fine art, computer science, teaching, biology and engineering. Many of the respondents mentioned that they use 3D printing for fun alongside their academic work. 
+
+From the list of possible drawbacks regarding which errors were most frequently encountered, print failures and print times were listed most often and by the most diverse range of survey participants. This was a central theme in the later survey as well.
+
+Certain user groups were more interested in improving specific functionality. Colour restrictions were a concern for survey participants based in the arts, as well as for those using the technology to create gifts. If we were to have focused more heavily on improving the colour restriction we might have spoken in more depth to these groups as well as having worked more closely with 3D printers that have multi-colour functionality. 
+
+Strength of material was a concern for those working in areas related to rapid prototyping and creating commercial prints however effected artists as well. Certain issues were commonly shared such as the drawbacks of cost of materials, although as the cost of the type of material being used increases the nature of cost concerns ties into more complex issues of business profits and decisions on retail price. For those printing for personal use, the cost issue is only about how to fund the materials. 
+
+The list in Table~\ref{table:Surveys} is of some survey participants predictions for what they can imagine doing with a 3D printer if it could edit a model in real time, some general themes arose from answers, centred around using the technology for encouraging experimentation in the design and creative process, customisation of objects and correcting print failures.
 
 
-\subsection{Buffer Control}
+\begin{table}[h]{\begin{minipage}{\textwidth}
+\begin{tabular}{| p{2cm} | p{12cm} |}
+\hline
+\textbf{Profession} & \textbf{Response} \\\hline
 
+EngD Researcher & I'd try out new ways of interpreting data in physical forms using real time information.\\\hline
+Research Engineer & Just experimenting with a fun interface.\\\hline
+Teaching fellow & I'm not quite sure how that would work, but I could imagine that I would be a lot more experimental in my designs. Usually my designs are very much fixed by the time it comes to the print stage, so any afterthoughts or adjustments get left and/or forgotten about.\\\hline
+Academic & Cope with print failures.\\\hline
+Sculptor & Developing intricate abstract forms. versatile scale changes to object, on the fly modifications saving proofing time.\\\hline
+Architect & Not much that can't be done without that technology. I suppose it could automate mass-customization of products, so a person didn't need to make the customizations to the file manually.\\\hline
+Architect & Not sure about that. I cannot see how the design outcome can be controlled. Maybe to fix flaws in geometry?\\\hline
+Architect & Using it as a sketch tool to develop and demonstrate different ideas.\\\hline
 
+\end{tabular}
+\caption{Survey responses to ``What could you imagine doing with a 3D printer if it could edit a model in real time?''.}
+\label{table:Surveys}
+\end{minipage} }
+\end{table}
 
-\subsection{G-code Manipulation}
+On reflection of the first survey a larger survey population including a more diverse range of users was found to have been desirable. We incorporated the initial responses from academic and maker communities into the early brainstorming and investigation phases of the project and went on to conduct more open ended surveys with expert 3D print users operating commercially and selling print bureau services.. The second survey was conducted further into the project duration and was aimed at developing our understanding of the kinds of errors that may be incurred. The kinds of industries using the professional 3D printing services on offer range from educational bodies, hobbyists to architects' offices, large scale manufacturers and medical manufacturers, to corporations searching for novel project delivery methods. The associated processes of commercial printing are more costly and time consuming than those in the initial survey. 
 
+Similarities arose amongst both groups, methods of fixing errors in extrusion based printers are similar in machines across different price ranges available. For example the founder of a prominent research group in London's 3D printing community, offering commercial advice and workshops reported back that he runs 4 machines 6 days a week 24 hours. ``I usually experience 2/3 errors during prints per week, we have a lot of control over the most minor of parameters within the bundled software, this however means tweaking the machine before each print which is a hassle!'' [Section~\ref{section:AppendixA}]. Our group conducted similar manual fixings using the Ultimaker. 
 
+It is similarly necessary to control the speed of FDM printers manually to suit the print job being carried out. Using just-in-time control would allow for this to occur as the print is being carried out, to slow down during more complex sections and speed up  over simple shapes. 
+ 
+The surveys were aimed at a broad spectrum of 3D print users and not only restricted to understanding users of one type of printer. Problematic printing processes were felt as strongly by those talking about the lower end FDM printers utilised in this project, as well as those using 3D printers associated with commercial processes. 
 
-\subsection{Improved Duration Estimation}
-
-
-
-\subsection{Parameter Adjustments}
-
-
-
-\subsection{Adaptive Skirt}
-
-
-
-\subsection{Geometry Manipulation}
-
-
-
-\section{Evaluation}
-\subsection{Results}
-
-
-
-
-\section{Future Work}
-\subsection{Improved Geometry Manipulation}
-
-
-
-
-\subsection{Automated Error Mitigation}
+At the more expensive end of the spectrum, for example SLS machines were reported to be problematic as dust gathers in the powder to cause errors, and higher end FDM printers also experience the same nozzle blockages as the lower grade machines used in our project. Other common problems included misaligned objects, long and inaccurate print time estimation that meant users come back to find failed prints. For a full list of the feedback given please see the Appendix, Section~\ref{section:AppendixA}.
 
 
 
 
-\subsection{Design Tool}
+
+
+\section{Buffer Control}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=4in]{james_two_lists.png}
+  \caption{Our new list-based buffer system.}
+  \label{figure:Jlists}
+\end{figure}
+In this section we discuss our software development. In Section~\ref{section:PreExistingPipeline} of this report we outlined how the g-code, generated by the slicer, is sent to the printer in arbitrarily large chunks. If we wanted to enable just-in-time control of the printer we needed to create a pipeline that controls what g-code and when it is sent over the serial port to the firmware. We achieved this by introducing a new buffer on the computer’s side of the serial port.
+
+To implement this new buffer on the computer's side we needed to introduce a number of different data structures as well as adapting existing ones. Originally Cura kept all of the g-code in an array with a pointer to the next command being sent; a simple but effective system. We kept this implementation, however rather than adding all g-code into this array (now known as the command list) at once, groups of g-code are added a layer at a time and only when the queue of commands remaining is very small (we found 6 remaining commands to be a good threshold). Keeping this implementation also allowed for the firmware requests to resend a line, described in Section~\ref{section:PreExistingPipeline}, to be unaffected. We can now think of this command list as the g-code commands that are committed to being printed - meaning that they cannot be altered and are going to be sent to the firmware next.
+
+In addition we introduced a second array known as the g-code list, it contains the remaining g-code commands produced by the slicer. When a new layer needs to be added to the command list, it is taken from this g-code list and appended to the back of the command list. The g-code list can be thought of as a staging area, where the commands can be edited, then removed so new ones can be added.
+
+Having introduce our new buffer system the challenge now was to find a way to enable this layer-based control. With knowing how many commands are in each layer and subsequently how many commands should be taken from the g-code list to the command list. Fortunately, when the g-code is returned from the slicer it includes meta-information designed to assist in the rendering of the g-code. This includes comments where a new layer is being started. Below is an example from a real file:
+\begin{verbatim}
+;LAYER:1
+M106 S127
+G0 F9000 X98.10 Y106.90 Z0.40
+;TYPE:WALL-INNER
+G1 F1620 X98.10 Y98.10 E8.73536
+G1 X106.90 Y98.10 E8.79054
+\end{verbatim}
+
+Using meta-information, such as \verb|;LAYER:1|,  we could build a cumulative histogram representing the number of lines in each layer. We could then use this no know how many g-code commands to release into the command list. 
+
+These small additions to the pipeline have the advantage of knowing what has already been committed to be printed and allows for the g-code not yet committed to be changed using different methods, the applications of which will be discussed in subsequent sections. However, next we will discuss what this layer-based control enabled us to do in the context of working with pure g-code. 
+
+One of the parameters FDM 3D printers have is the thickness of the plastic that is extruded from the nozzle. It is this thickness - a constant for a whole model - that determines the height of each layer. With this insight it makes it possible to switch the g-code list for any other g-code list and cumulative layer histogram that uses the same thickness of plastic. All that is required for seamless switching is to keep a pointer to the cumulative histogram of the layer that is to be sent next. When the g-code is switched, the pointer to the next command from the g-code list to be added to the command list is updated by taking the value from the new cumulative histogram. So when the command list has fewer than 6 commands in, the next layer added will be at the perfect height from the last layer printed. 
+
+This generic method for switching g-code can be used in a number of different applications, which are discussed later. An important thing to remember at this stage is that this process is completely agnostic to what the g-code commands are. It is possible to replace the g-code list with a completely random g-code that will execute in mid air causing a print failure. As such, the onus is on the applications that generate new g-code, ensuring that the next layer is aligned with the previous.
 
 
 
 
-\section{Conclusion}
 
-\subsection{Buffer Control}
+\section{G-code Manipulation}
+Once we replaced the original buffer system used by Cura with our own, we could manipulate individual commands sent to the printer and therefore gained more direct control over when the printer performed certain actions.
 
+We had to take into account a small delay over the serial cable connection (via USB) to the printer, approximates to about one standard g-code instruction. With this in mind we are able to change the pending instruction just-in-time, before being sent to the printer and executed in its modified form.
+
+Our initial explorations of g-code manipulation involved learning what the often cryptic instruction lines meant. We studied the codes manual for the predecessor of our printer called the RepRap as it shares most, if not all of the same codes with our printer~\ref{reference:47}. Since g-codes are a standardised system originally written for CNC mills and similar equipment, some of the terms are fairly generic and sometimes their meaning is misused when applied to 3D printing. For example, whilst G0 (rapid movement) and G1 (controlled movement) have different meanings for a CNC equipment, they are identical when interpreted by the Ultimaker. Also, codes such as M240 (start conveyor belt motor) have no meaning at all in our scenario.
+
+Looking at the codes applicable to 3D printing, we noted that most of them are in the form of:
+\begin{verbatim}
+<CODE>
+\end{verbatim}
+or
+\begin{verbatim}
+<CODE> <PARAMETERS>
+\end{verbatim}
+
+Where \verb|<CODE>| is a placeholder for g-code such as G0 or G1 that instructs the printer and \verb|<PARAMETERS>| is a list of preset options that clarify those instructions. For example, these could be the X and Y coordinates to which the G1 instructs the printer head to move. Some parameters are optional in the \verb|<PARAMETERS>| list as well. For example, the Z coordinate and extrusion amount (symbolised by the letter E) are not necessary for G1 to execute.
+
+Once we had learnt the relevant codes and what their parameters meant, we could begin to deconstruct incoming commands in our buffer, manipulating, reconstructing and sending them off to the printer. This process involved the use of regular expressions or regexes, used to match characters in text strings using standardised codes~\ref{reference:48}. With regexes in place we could extract the <CODE> component, as well as the list of parameters and any related values. We could then use a common feature of regex libraries included in Python to replace parts of a given text line matching a regex, with a different line containing a new set of instructions for the printer. This allows us to formulaically rewrite an instruction. For example:
+\begin{verbatim}
+G1 X100 Y100
+\end{verbatim}
+can be rewritten to
+\begin{verbatim}
+G1 X200 Y100
+\end{verbatim}
+
+Using these regular expression replacements, we were able to manipulate our instructions programmatically whilst they are sitting in our g-code list and then send them off to the printer, without it negatively affecting the print in any way.
+
+	From this point we were able to improve the flexibility of our manipulation, allowing for parameterised control of the g-code lines. This control means that the user can specify their own parameters for the printer and inject them into the raw g-code. 
+To make this simple and easy to use we wrote an extension to the Cura print window user interface, incorporating this new form of input in the form of a new tab, see Figure~\ref{figure:CuraCustomTab}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=4in]{CuraCustomTab.png}
+  \caption{Cura print window showing new custom tab.}
+  \label{figure:CuraCustomTab}
+\end{figure}
+
+In this tab we added the ability to shift a given print layer by specified amounts in the X and Y axes. The way this works is by replacing the X and Y parameter values with new numbers. The offsetting amount can be specified in the user interface. Using regular expressions we insured the line was a G1 instruction, then scanned it for the X and Y parameters which we extracted. We then modified these values and replaced the X<number> Y<number> component of the line.
+This operation is already of immediate utility to the end user. A common error scenario, shown below, is that the nozzle is jogged by an external source or problem with the rubber belts or stepper motors, making the print offset by a certain amount. If the user can simply jog the printed model back by the opposite amount in our user interface, this error can be mitigated.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=4in]{FoggerOffset.png}
+  \caption{Photograph of the scenario described here that can be solved by our offsetting feature.}
+  \label{figure:FoggerOffset}
+\end{figure}
+
+This is one example of a manipulation but once this was possible it opened the door to more advanced just-in-time control, such as the full range of affine transformations of translation, scaling, reflection, rotation and shearing. These operations come with the limitation that they can currently only be performed globally on one whole slice at a time.There may be an additional need to inspect the command history for the more complex transformations.
+
+
+
+
+\section{Improved Duration Estimation}
+
+
+
+\section{Parameter Adjustments}
+
+
+
+\section{Adaptive Skirt}
+
+
+
+\section{Geometry Manipulation}
+
+
+
+\chapter{Evaluation}
+\section{Results}
+
+
+
+
+\chapter{Future Work}
+\section{Improved Geometry Manipulation}
+
+
+
+
+\section{Automated Error Mitigation}
+
+
+
+
+\section{Design Tool}
+
+
+
+
+\chapter{Conclusion}
+
+\section{Buffer Control}
+
+
+\chapter{Appendix}
+\label{section:AppendixA}
+https://github.com/JWHennessey/Cura
 
 % Bibliography
 \nocite{*}
 \bibliographystyle{plain}
-\bibliography{bibliogVer1}
+\bibliography{bibliography}
 
 \end{document}
